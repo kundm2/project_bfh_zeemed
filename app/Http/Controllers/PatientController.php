@@ -100,7 +100,7 @@ class PatientController extends Controller
     public function addVital($patID, Request $request) {
         $patient = Patient::findOrFail($patID); // Check if patient exists, or die
         $this->validate($request, [
-            'sign'          => 'required|exists:Sign,signID',
+            'sign'          => 'required|exists:sign,signID',
             'value'         => 'required|numeric|min:30|max:200',
             'timestamp'     => 'required|before:tomorrow',
         ]);
@@ -120,11 +120,11 @@ class PatientController extends Controller
     public function addMedicine($patID, Request $request) {
         $patient = Patient::findOrFail($patID); // Check if patient exists, or die
         $this->validate($request, [
-            'medicament'    => 'required|exists:Medicament,medicamentID',
+            'medicament'    => 'required|exists:medicament,medicamentID',
             'quantity'      => 'required|numeric|min:1|max:10',
             'mtimestamp'    => 'required|before:tomorrow',
-            'nurse'         => 'required|exists:Staff,staffID',
-            'physician'     => 'required|exists:Staff,staffID',
+            'nurse'         => 'required|exists:staff,staffID',
+            'physician'     => 'required|exists:staff,staffID',
         ]);
 
         $medicine = new Medicine();

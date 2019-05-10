@@ -15,7 +15,7 @@
             <div class="card-body">
                 <h3 class="card-title">
                     Users
-                    <a href="/user/add" class="float-right">
+                    <a href="{{ URL::asset("/user/add/") }}" class="float-right">
                         <button type="button" class="btn btn-secondary btn-sm">
                                 <i class="mdi mdi-account-multiple"></i>
                                 Add

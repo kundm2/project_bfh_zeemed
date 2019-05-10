@@ -35,7 +35,7 @@ class UserController extends Controller
 
     public function addNew(Request $request) {
         $this->validate($request, [
-            'username'              => 'min:2|alpha-dash|unique:Staff',
+            'username'              => 'min:2|alpha-dash|unique:staff',
             'name'                  => 'min:2|alpha-dash',
             'firstname'             => 'min:2|alpha-dash',
             'function'              => '',

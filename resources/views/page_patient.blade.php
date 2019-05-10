@@ -15,7 +15,7 @@
             <div class="card-body">
                 <h3 class="card-title">
                     Patients
-                    <a href="/patient/add" class="float-right btn btn-secondary btn-sm">
+                    <a href="{{ URL::to("/patient/add/")}}" class="float-right btn btn-secondary btn-sm">
                         <i class="mdi mdi-wheelchair-accessibility"></i>
                         Add
                     </a>
@@ -46,7 +46,7 @@
                                     <a href="{{ URL::to('/patient/' . $patient->patientID ) }}" class="btn btn-primary btn-sm">
                                         View
                                     </a>
-                                    <a href="{{ URL::asset("/patient/edit/" . $patient->patientID  ) }}" class="btn btn-secondary btn-sm">
+                                    <a href="{{ URL::to("/patient/edit/" . $patient->patientID  ) }}" class="btn btn-secondary btn-sm">
                                         Edit
                                     </a>
                                 </td>
