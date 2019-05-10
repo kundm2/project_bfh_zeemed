@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\StaffFunction;
-use App\Medicament;
 use Illuminate\Support\Facades\Input;
 use Spatie\Searchable\Search;
-use App\Patient;
 use App\Staff;
+use App\StaffFunction;
+use App\Patient;
+use App\Medicament;
 use Symfony\Component\HttpFoundation\Request;
 
 class OptionController extends Controller
