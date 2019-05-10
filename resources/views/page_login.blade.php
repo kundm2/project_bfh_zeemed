@@ -12,7 +12,6 @@
                     <div class="auto-form-wrapper">
                         <form action="{{ URL::to('/login') }}" method="POST">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            <?php var_dump($errors) ?>
                             <div class="form-group">
                                 <label class="label">Username</label>
                                 <input type="text" class="form-control" id="username" name="username" placeholder="Username">
