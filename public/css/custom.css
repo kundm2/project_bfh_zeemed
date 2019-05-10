@@ -40,6 +40,19 @@
     line-height: 1.2;
     margin-top: -8px;
 }
+.nav-tabs {
+    border: 0;
+}
+.nav-tabs li {
+    margin-right: 15px;
+}
+.nav-tabs li a {
+    color: #404852;
+    font-size: 14px;
+}
+.nav-tabs li a.active{
+    color: #007bff;
+}
 
 
 .table td, .table th {

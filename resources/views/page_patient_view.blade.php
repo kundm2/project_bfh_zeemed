@@ -82,8 +82,14 @@
     <div class="col-lg-6 grid-margin stretch-card">
         <div class="card">
         <div class="card-body">
-            <h3 class="card-title">Add Vital</h3>
-            <form class="" method="POST" action="{{ URL::asset("/patient/" . $patient->patientID) }}" target="_self">
+            <h3 class="card-title nav-tabs">
+                <ul class="nav nav-tabs">
+                    <li><a data-toggle="tab" href="#addVital" class="active">Add Vital</a></li>
+                    <li><a data-toggle="tab" href="#addMedicine">Add Medicine</a></li>
+                </ul>
+            </h3>
+            <div class="tab-content">
+            <form class="tab-pane fade active show" method="POST" action="{{ URL::asset("/patient/addVital/" . $patient->patientID) }}" target="_self" id="addVital">
 
                 <div class="form-group row {{ $errors->has('sign') ? 'text-danger' : '' }}">
                     <div class="col-lg-3 col-form-label">
@@ -139,6 +145,91 @@
                     <button type="submit" class="btn btn-success mr-2">Submit</button>
                 </div>
             </form>
+            <form class="tab-pane fade" method="POST" action="{{ URL::asset("/patient/addMedicine/" . $patient->patientID) }}" target="_self" id="addMedicine">
+
+                <div class="form-group row {{ $errors->has('medicament') ? 'text-danger' : '' }}">
+                    <div class="col-lg-3 col-form-label">
+                        <label for="medicament">Medicament</label>
+                    </div>
+                    <div class="col-lg-9">
+                        <select class="form-control" id="medicament" name="medicament">
+                            @foreach ($medicaments as $medicament)
+                                <option value="{{$medicament->medicamentID}}">{{$medicament->medicament_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @if ($errors)<small>{{$errors->first('medicament')}}</small>@endif
+                </div>
+
+                <div class="form-group row {{ $errors->has('quantity') ? 'text-danger' : '' }}">
+                    <div class="col-lg-3 col-form-label">
+                        <label for="quantity">Quantity</label>
+                    </div>
+                    <div class="col-lg-9">
+                        <input type="number" class="form-control" name="quantity" id="quantity" autocomplete="off" value="{{old('quantity')}}" step="0.1">
+                    </div>
+                    @if ($errors)<small>{{$errors->first('quantity')}}</small>@endif
+                </div>
+
+                <div class="form-group row {{ $errors->has('mtimestamp') ? 'text-danger' : '' }}">
+                    <div class="col-lg-3 col-form-label">
+                        <label for="mtimestamp">Timestamp</label>
+                    </div>
+                    <div class="col-lg-9">
+                        <input type="datetime-local" class="form-control" name="mtimestamp" id="mtimestamp" autocomplete="off" value="{{$currDate->format('Y-m-d\TH:i')}}">
+                        <small>
+                            <a href="#" onclick="document.getElementById('mtimestamp').value = '{{$currDate->format('Y-m-d\TH:i')}}';">Now</a>
+                        </small>
+                    </div>
+                    @if ($errors)<small>{{$errors->first('mtimestamp')}}</small>@endif
+                </div>
+
+                <div class="form-group row {{ $errors->has('nurse') ? 'text-danger' : '' }}">
+                    <div class="col-lg-3 col-form-label">
+                        <label for="nurse">Nurse</label>
+                    </div>
+                    <div class="col-lg-9">
+                        <select class="form-control" id="nurse" name="nurse">
+                            @foreach ($staffs as $staff)
+                                <option value="{{$staff->staffID}}">{{$staff->getFullName()}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @if ($errors)<small>{{$errors->first('nurse')}}</small>@endif
+                </div>
+
+                <div class="form-group row {{ $errors->has('physician') ? 'text-danger' : '' }}">
+                    <div class="col-lg-3 col-form-label">
+                        <label for="physician">Physician</label>
+                    </div>
+                    <div class="col-lg-9">
+                        <select class="form-control" id="physician" name="physician">
+                            @foreach ($staffs as $staff)
+                                <option value="{{$staff->staffID}}">{{$staff->getFullName()}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @if ($errors)<small>{{$errors->first('physician')}}</small>@endif
+                </div>
+
+                <div class="form-group row {{ $errors->has('mnote') ? 'text-danger' : '' }}">
+                    <div class="col-lg-3 col-form-label">
+                        <label for="mnote">Note</label>
+                    </div>
+                    <div class="col-lg-9">
+                        <textarea class="form-control" name="mnote" id="mnote" value="{{old('mnote')}}" rows="3"></textarea>
+                    </div>
+                    @if ($errors)<small>{{$errors->first('mnote')}}</small>@endif
+                </div>
+
+                {{ csrf_field() }}
+
+                <div class="form-group float-right">
+                    <a type="cancel" class="btn btn-link" href="">Cancel</a>
+                    <button type="submit" class="btn btn-success mr-2">Submit</button>
+                </div>
+            </form>
+            </div>
         </div>
         </div>
     </div>

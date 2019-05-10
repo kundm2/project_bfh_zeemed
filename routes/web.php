@@ -22,11 +22,12 @@ Route::get('/patients', 'PatientController@index');
 Route::get('/patient', 'PatientController@toIndex');
 Route::get('/patient/add', 'PatientController@displayAdd');
 Route::post('/patient/add', 'PatientController@addNew');
+Route::post('/patient/addMedicine/{id}', 'PatientController@addMedicine');
+Route::post('/patient/addVital/{id}', 'PatientController@addVital');
 Route::get('/patient/edit/{id}', 'PatientController@displayEdit');
 Route::post('/patient/edit/{id}', 'PatientController@save');
 Route::get('/patient/del/{id}', 'PatientController@patientDel');
 Route::get('/patient/{id}', 'PatientController@displayView');
-Route::post('/patient/{id}', 'PatientController@formData');
 
 Route::get('/users', 'UserController@index');
 Route::get('/user', 'UserController@toIndex');

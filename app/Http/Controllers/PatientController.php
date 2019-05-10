@@ -7,8 +7,9 @@ use App\BlocNote;
 use App\Medicine;
 use App\Patient;
 use App\Sign;
-use App\Staff;
 use App\VitalSign;
+use App\Medicament;
+use App\Staff;
 
 class PatientController extends Controller
 {
@@ -29,6 +30,8 @@ class PatientController extends Controller
         return view('page_patient_view', [
             'patient' => $patient,
             'signs' => Sign::all(),
+            'medicaments' => Medicament::all(),
+            'staffs' => Staff::all(),
             'activities' => $this->getActivities($patID),
             'temperatures' => $this->getDiagramData($patient->getTemperature()),
             'pulses' => $this->getDiagramData($patient->getPulse()),
@@ -94,7 +97,7 @@ class PatientController extends Controller
         return view('page_patient_add');
     }
 
-    public function formData($patID, Request $request) {
+    public function addVital($patID, Request $request) {
         $patient = Patient::findOrFail($patID); // Check if patient exists, or die
         $this->validate($request, [
             'sign'          => 'required|exists:Sign,signID',
@@ -110,6 +113,30 @@ class PatientController extends Controller
         $vitalSign->note = ($request->note === null) ? '' : $request->note;
 
         $vitalSign->save();
+
+        return redirect( '/patient/' . $patID );
+    }
+
+    public function addMedicine($patID, Request $request) {
+        $patient = Patient::findOrFail($patID); // Check if patient exists, or die
+        $this->validate($request, [
+            'medicament'    => 'required|exists:Medicament,medicamentID',
+            'quantity'      => 'required|numeric|min:1|max:10',
+            'mtimestamp'    => 'required|before:tomorrow',
+            'nurse'         => 'required|exists:Staff,staffID',
+            'physician'     => 'required|exists:Staff,staffID',
+        ]);
+
+        $medicine = new Medicine();
+        $medicine->time = $request->mtimestamp;
+        $medicine->quantity = $request->quantity;
+        $medicine->medicamentID = $request->medicament;
+        $medicine->patientID = $patID;
+        $medicine->staffID_nurse = $request->nurse;
+        $medicine->staffID_physician = $request->physician;
+        $medicine->note = ($request->mnote === null) ? '' : $request->mnote;
+
+        $medicine->save();
 
         return redirect( '/patient/' . $patID );
     }
